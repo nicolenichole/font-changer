@@ -1,1 +1,1 @@
-document.body.style.fontFamily = "Comic Sans MS, cursive, sans-serif";
+document.body.style.fontFamily = "'OpenDyslexic', sans-serif !important";

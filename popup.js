@@ -10,43 +10,52 @@ document.getElementById("fontSelect").addEventListener("change", (e) => {
             return;
         }
         
+        let fontURL = "";
+        if (font === "OpenDyslexic") {
+            fontURL = chrome.runtime.getURL("fonts/OpenDyslexic-Regular.otf");
+        }
+        
         chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
-            func: (font) => {
-                const styleId = "open-dyslexic-style";
+            target: { tabId: activeTab.id },
+            func: (font, fontURL) => {
+                const styleId = "global-font-style";
+                // Remove any previous style tag if exists
                 const existingStyle = document.getElementById(styleId);
-    
+                if (existingStyle) {
+                    existingStyle.remove();
+                }
+                
+                // If "Original font" is selected, do nothing (or remove our global override)
+                if (font === "Original font") {
+                    return;
+                }
+                
+                const style = document.createElement("style");
+                style.id = styleId;
+                
                 if (font === "OpenDyslexic") {
-                    if (!existingStyle) {
-                    const style = document.createElement("style");
-                    style.id = styleId;
                     style.textContent = `
                         @font-face {
-                        font-family: 'OpenDyslexic';
-                        src: url('${chrome.runtime.getURL("fonts/OpenDyslexic-Regular.otf")}') format('opentype');
+                            font-family: 'OpenDyslexic';
+                            src: url('${fontURL}') format('opentype');
+                        }
+                        html, body, * {
+                            font-family: 'OpenDyslexic', sans-serif !important;
                         }
                     `;
-                    document.head.appendChild(style);
-                    }
-                    document.body.style.fontFamily = "'OpenDyslexic', sans-serif";
-                } else if (font === "Original font") {
-                    // Remove any custom font styles
-                    if (existingStyle) {
-                        existingStyle.remove();
-                    }
-                    document.body.style.fontFamily = "";  // Reset to original font
                 } else {
-                    // Remove OpenDyslexic style tag if present
-                    if (existingStyle) {
-                    existingStyle.remove();
-                    }
-                    document.body.style.fontFamily = font;
+                    style.textContent = `
+                        html, body, * {
+                            font-family: ${font} !important;
+                        }
+                    `;
                 }
+                
+                document.head.appendChild(style);
             },
-            args: [font],
+            args: [font, fontURL],
         }).catch((err) => {
             console.error("Error executing script:", err);
         });
     });
 });
-  
