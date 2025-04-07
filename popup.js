@@ -1,5 +1,10 @@
 document.getElementById("fontSelect").addEventListener("change", (e) => {
     const font = e.target.value;
+
+    // Save the font selection to chrome.storage
+    chrome.storage.local.set({ selectedFont: font }, () => {
+        console.log("Font saved:", font);
+    });
   
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
