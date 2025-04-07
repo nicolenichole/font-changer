@@ -1,4 +1,4 @@
-# Font Changer - Chrome Extension
+# Font Changer for Dyslexia - Chrome Extension
 
 This Chrome extension allows users to change the font of text on any webpage. It includes several font options, including **OpenDyslexic**, a font designed to improve readability for people with dyslexia.
 
