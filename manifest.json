@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Font Changer",
+    "name": "Font Changer for Dyslexia",
     "version": "1.0",
-    "description": "Change font on webpages.",
+    "description": "Change font on webpages for readibility. Includes OpenDyslexic font.",
     "permissions": ["scripting", "activeTab"],
     "action": {
       "default_popup": "popup.html"
