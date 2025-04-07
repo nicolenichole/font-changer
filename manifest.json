@@ -9,7 +9,7 @@
     },
     "web_accessible_resources": [
       {
-        "resources": ["fonts/OpenDyslexic-Regular.otf", "opendyslexic.css"],
+        "resources": ["fonts/OpenDyslexic-Regular.otf"],
         "matches": ["<all_urls>"]
       }
     ]
