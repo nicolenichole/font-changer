@@ -2,6 +2,14 @@ document.getElementById("fontSelect").addEventListener("change", (e) => {
     const font = e.target.value;
   
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const activeTab = tabs[0];
+
+        // Check if the URL is a chrome:// URL
+        if (activeTab.url.startsWith("chrome://")) {
+            alert("This extension does not work on Chrome internal pages.");
+            return;
+        }
+        
         chrome.scripting.executeScript({
             target: { tabId: tabs[0].id },
             func: (font) => {
@@ -36,6 +44,8 @@ document.getElementById("fontSelect").addEventListener("change", (e) => {
                 }
             },
             args: [font],
+        }).catch((err) => {
+            console.error("Error executing script:", err);
         });
     });
 });
