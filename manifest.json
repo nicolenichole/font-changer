@@ -6,7 +6,12 @@
     "permissions": ["scripting", "activeTab"],
     "action": {
       "default_popup": "popup.html"
-    }
+    },
+    "web_accessible_resources": [
+      {
+        "resources": ["fonts/OpenDyslexic-Regular.otf", "opendyslexic.css"],
+        "matches": ["<all_urls>"]
+      }
+    ]
 }
-  
   
