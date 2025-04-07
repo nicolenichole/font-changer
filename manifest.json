@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Font Changer",
+    "version": "1.0",
+    "description": "Change font on webpages.",
+    "permissions": ["scripting", "activeTab"],
+    "action": {
+      "default_popup": "popup.html"
+    }
+}
+  
+  
